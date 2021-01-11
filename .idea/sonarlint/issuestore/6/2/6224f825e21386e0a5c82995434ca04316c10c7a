@@ -1,0 +1,10 @@
+
+U
+java:S1118
+":Add a private constructor to hide the implicit public one.(‘ÎÊÿÿÿÿÿ
+l
+java:S2095"QUse try-with-resources or close this "BufferedInputStream" in a "finally" clause.(è¼Ğ‡ıÿÿÿÿ
+d
+java:S2095/"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(éßèÀ
+J	java:S108")Either remove or fill this block of code.(›±Èşÿÿÿÿ8ÈÕô•ï.
+J	java:S1081")Either remove or fill this block of code.(›±Èşÿÿÿÿ8èù…òî.

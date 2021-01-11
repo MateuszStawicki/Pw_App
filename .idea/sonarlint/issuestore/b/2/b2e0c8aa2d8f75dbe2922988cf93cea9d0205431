@@ -1,0 +1,7 @@
+
+U	java:S106 "9Replace this use of System.out or System.err by a logger.(ÎÚÆ‹8ì–¡—ï.
+a
+java:S20950"DUse try-with-resources or close this "Socket" in a "finally" clause.(¬8é©Àíî.
+c
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(º½„ûÿÿÿÿ8¶¥ï“ï.
+U	java:S106!"9Replace this use of System.out or System.err by a logger.(é§ş„8ì–¡—ï.
