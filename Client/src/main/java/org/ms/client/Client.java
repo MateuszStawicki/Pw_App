@@ -1,5 +1,9 @@
 package org.ms.client;
 
+import lombok.SneakyThrows;
+import org.ms.shared.Logger;
+import org.ms.shared.Response;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -8,10 +12,6 @@ import java.net.Socket;
 import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import lombok.SneakyThrows;
-import org.ms.shared.Logger;
-import org.ms.shared.Response;
 
 
 public class Client extends Thread {
@@ -29,12 +29,12 @@ public class Client extends Thread {
     private List<String> originalServerFilesNames = Collections.synchronizedList(new ArrayList<>());
 
     public void init() {
-        System.out.println("Klient " + Thread.currentThread().getName());
+
         System.out.println("Wpisz login\n" + ">");
         Scanner scanner = new Scanner(System.in);
         String login = scanner.next();
         clientDirPath = Paths.get(CLIENT_PATH + SLASH + login);
-        prepareDirectory();
+        prepareDirectory(login);
         connectClientToServer(login);
         synchronize();
         start();
@@ -49,11 +49,12 @@ public class Client extends Thread {
         printWriter = new PrintWriter(socket.getOutputStream(), true);
         bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         printWriter.println(login);
-        Logger.log("Connected to server");
+        Logger.log(login + " connected to server");
     }
 
     @SneakyThrows
-    private void prepareDirectory() {
+    private void prepareDirectory(String login) {
+        Logger.log("Preparing directory for " + login);
         File directory = clientDirPath.toFile();
         if (directory.exists()) {
             directory.delete();
@@ -85,8 +86,8 @@ public class Client extends Thread {
         originalServerFilesNames = Arrays.asList(bufferedReader.readLine().split(","));
         List<String> userFileNames = Arrays.asList(clientDirPath.toFile().listFiles()).stream().map(File::getName).collect(Collectors.toList());
         originalServerFilesNames.stream()
-                                .filter(fileName -> !userFileNames.contains(fileName) && !fileName.equals(""))
-                                .forEach(fileName -> fileEventHandlers.add(new FileEventHandler(printWriter, clientDirPath, fileName)));
+                .filter(fileName -> !userFileNames.contains(fileName) && !fileName.equals(""))
+                .forEach(fileName -> fileEventHandlers.add(new FileEventHandler(printWriter, clientDirPath, fileName)));
         Logger.log("Synchronization finished");
     }
 

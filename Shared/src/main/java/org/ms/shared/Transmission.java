@@ -10,12 +10,12 @@ import lombok.SneakyThrows;
 public class Transmission {
 
     @SneakyThrows
-    public static void loadAndWriteFile(OutputStream outStream, Path filePath) {
-        loadAndWriteFile(outStream, filePath, 0L, new AtomicBoolean(false));
+    public static void loadAndWriteFile(OutputStream outStream, Path filePath, int slower) {
+        loadAndWriteFile(outStream, filePath, slower, new AtomicBoolean(false));
     }
 
     @SneakyThrows
-    public static void loadAndWriteFile(OutputStream outStream, Path filePath, long slower, AtomicBoolean paused) {
+    public static void loadAndWriteFile(OutputStream outStream, Path filePath, int slower, AtomicBoolean paused) {
         BufferedInputStream inStream = new BufferedInputStream(new FileInputStream(filePath.toFile()));
 
         int read;

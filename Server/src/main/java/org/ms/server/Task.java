@@ -25,7 +25,7 @@ public class Task extends Thread {
     private User user;
     private FileCommand command;
 
-    private static final int FILE_SLOWER = 100;
+    private static final int FILE_SLOWER = 5000;
     private static final String SLASH = "/";
     private boolean withBlock = false;
     private boolean priority = false;
@@ -69,7 +69,7 @@ public class Task extends Thread {
 @SneakyThrows
     private void delete(Path filePath) {
 
-    Logger.log("Removing file: " + command.getFileName() + "started");
+    Logger.log("Removing file: " + command.getFileName() + " started");
 
         if (filePath.toFile().exists()) {
             Files.delete(filePath);
@@ -81,7 +81,7 @@ public class Task extends Thread {
 
     @SneakyThrows
     private void download() {
-        Logger.log("Downloading file: " + command.getFileName() + "started");
+        Logger.log("Downloading file: " + command.getFileName() + " started");
 
         getUser().getWriter().println(new Response(getCommand().getId(), getServerSocket().getLocalPort()).toString());
         Socket socket = getServerSocket().accept();
@@ -95,7 +95,7 @@ public class Task extends Thread {
 
     @SneakyThrows
     private void send(Path filePath) {
-        Logger.log("Creating file: " + command.getFileName() + "started");
+        Logger.log("Creating file: " + command.getFileName() + " started");
 
         if (filePath.toFile().exists()) {
             Files.delete(filePath);
@@ -116,12 +116,12 @@ public class Task extends Thread {
         }
 
         paused.set(true);
-        Logger.log(getCommand().getId() + "paused");
+        Logger.log(getCommand().getFileName() + "paused");
     }
 
     public synchronized void resumeTask() {
         paused.set(false);
-        Logger.log(getCommand().getId() + "resumed");
+        Logger.log(getCommand().getFileName()  + " resumed");
     }
 
 

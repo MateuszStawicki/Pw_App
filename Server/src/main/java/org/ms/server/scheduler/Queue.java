@@ -60,12 +60,12 @@ public class Queue {
 
     private void queueStatus() {
         synchronized (taskList) {
-            Logger.log("Queue status: [size=" + taskList.size() + "; taskIds={" +
-                      String.join(",", taskList.stream().map(task -> task.getCommand().getId()).map(Object::toString).collect(Collectors.joining(","))) + "}]");
+            Logger.log("Queue status: [size=" + taskList.size() + "; waiting files={" +
+                      String.join(",", taskList.stream().map(task -> task.getCommand().getFileName()).map(Object::toString).collect(Collectors.joining(","))) + "}]");
         }
         synchronized (priorityTasksList) {
-            Logger.log("PriorityQueue status: [size=" + priorityTasksList.size() + "; taskIds={" +
-                        String.join(",", priorityTasksList.stream().map(task -> task.getCommand().getId()).map(Object::toString).collect(Collectors.joining(","))) + "}]");
+            Logger.log("PriorityQueue status: [size=" + priorityTasksList.size() + "; waiting files={" +
+                        String.join(",", priorityTasksList.stream().map(task -> task.getCommand().getFileName()).map(Object::toString).collect(Collectors.joining(","))) + "}]");
         }
     }
 

@@ -17,9 +17,10 @@ import org.ms.shared.Transmission;
 
 public class FileEventHandler extends Thread {
 
-    private static final long MAX_BYTES_SIZE_FOR_PRIORITY = 150000L;
+    private static final long MAX_BYTES_SIZE_FOR_PRIORITY = 10000L;
     private static final String SLASH = "/";
     private final Path clientDirectoryPath;
+    private static final int FILE_SLOWER = 5000;
     @Getter
     private final FileCommand command;
 
@@ -62,7 +63,7 @@ public class FileEventHandler extends Thread {
 
         if (FileCommand.CommandType.SEND.equals(command.getType()) || CommandType.SEND_WITH_PRIORITY.equals(command.getType())) {
             Logger.log("Sending file '" + command.getFileName() + "' to server");
-            Transmission.loadAndWriteFile(socket.getOutputStream(), Paths.get(clientDirectoryPath.toString() + SLASH + command.getFileName()));
+            Transmission.loadAndWriteFile(socket.getOutputStream(), Paths.get(clientDirectoryPath.toString() + SLASH + command.getFileName()),FILE_SLOWER);
         } else if (FileCommand.CommandType.DOWNLOAD.equals(command.getType())) {
             Logger.log("Downloading file '" + command.getFileName() + "' from server");
             Transmission.readAndSaveFile(socket.getInputStream(), Paths.get(clientDirectoryPath.toString() + SLASH + command.getFileName()));
